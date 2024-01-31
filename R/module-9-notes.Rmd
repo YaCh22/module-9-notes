@@ -1,0 +1,61 @@
+---
+title: "module-9-notes"
+output: html_document
+date: "2024-01-31"
+---
+```{r}
+install.packages(c("tidyverse","skimr", "summarytools", "dataMaid", "psych", "pastecs", "Hmisc", "ggExtra", "car", "GGally", "corrplot", "patchwork", "cowplot", "gridExtra"))
+library(tidyverse)
+```
+
+
+
+
+
+```{r}
+f <- "https://raw.githubusercontent.com/difiore/ada-2024-datasets/main/Country-Data-2016.csv"
+d <- read_csv(f, col_names = TRUE)
+```
+
+```{r}
+nrow(d)
+ncol(d)
+names(d)
+glimpse(d)
+str(d)
+median(d$area, na.rm = TRUE)
+median(d$population, na.rm = TRUE)
+```
+
+
+```{r}
+summary(d)
+```
+
+```{r}
+c <- unique(d$country)
+length(c)
+```
+
+```{r}
+#names(d)
+d_density <- d %>%
+  mutate(density = population/area)
+
+d_arrange <- arrange(d_density, density)
+head(d_arrange$density, n=10)
+```
+```{r}
+d_arrange_removena <- d_arrange %>%
+  filter(!is.na(density))
+
+tail(d_arrange, n=10)
+```
+
+
+
+
+```{r}
+#names(d)
+d_density_most <- d_density[order(density),]
+```
